@@ -3,7 +3,7 @@ from war_player import Player
 import sys
 
 
-class Game(object):
+class Blackjack(object):
     def __init__(self, war_size=3, human=True):
         self.human = human
         self.player1 = self.create_player("Player 1")
