@@ -41,6 +41,9 @@ class Player(object):
     def play_action(self):
         self.hand
 
+    def display_hand(self):
+        print 'Player '+self.name+' hand: '+str(self.hand)
+
     def __repr__(self):
         return self.name
 
