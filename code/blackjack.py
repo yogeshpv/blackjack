@@ -1,5 +1,5 @@
-from deck import Deck
-from player import Player
+from blackjack_deck import Deck
+from blackjack_player import Player, Dealer
 import sys
 
 
@@ -10,16 +10,27 @@ class Blackjack(object):
         self.players = []
 
         # dealer goes to end of list
-        self.players.append( self.create_player("Dealer", 1000000) )
+        self.players.append( self.create_dealer("Dealer", 1000000, self.deck) )
 
         # players get added to the front of list
-        self.players.insert( 0, self.create_player("Player_1", 200) )
+        self.players.insert( 0, self.create_player("Player_1", 200, self.deck) )
 
         self.winner = None
         self.loser = None
         self.pot = []
 
-    def create_player(self, title, cash):
+    def create_dealer(self, title, cash, deck):
+        if self.human:
+            name = raw_input("Enter %s's name: " % title)
+            cash = raw_input("Enter %s's cash: " % cash)
+        else:
+            name = title
+            cash = 0 if cash == "amount" else cash
+        print 'Created Dealer '+name+' with $'+str(cash)
+        return Dealer(name, cash, deck)
+
+
+    def create_player(self, title, cash, deck):
         if self.human:
             name = raw_input("Enter %s's name: " % title)
             cash = raw_input("Enter %s's cash: " % cash)
@@ -27,7 +38,8 @@ class Blackjack(object):
             name = title
             cash = 0 if cash == "amount" else cash
         print 'Created Player '+name+' with $'+str(cash)
-        return Player(name, cash)
+        return Player(name, cash, deck)
+
 
 
     def play_game(self):
@@ -47,10 +59,12 @@ class Blackjack(object):
         self.deck.shuffle()
         self.deal()
 
+        self.display_hands()
+
         # play action
+        print '\n--- play action! ---'
         for player in self.players:
-            
-            pass
+            player.play_action()
 
         self.determine_win_loss()
         self.do_money()
@@ -58,26 +72,41 @@ class Blackjack(object):
         self.display_hands()
 
     def place_bets(self):
-        print '--- placing bets ---'
+        print '\n--- placing bets ---'
         for player in self.players:
-            pass
+            player.make_bet() # returns a false if out of $$$. need to do something.....
         return
 
     def deal(self):
-        print '--- dealing hands ---'
+        print '\n--- dealing hands ---'
         # give each player 1st card, then 2nd card
         for i in range(2):
             for player in self.players:
                 player.receive_card( self.deck.draw_card() )
 
     def determine_win_loss(self):
-        print '--- deterining winners / losers ---'
-        for player in self.players:
-            pass
-        pass
+        print '\n--- deterining winners / losers ---'
+
+        # check dealer status...
+        dealer = self.players[-1]
+        if dealer.busted:
+            print 'Dealer BUSTED. EVERYONE WIN!!!!!!!'
+        else:
+            dealer_value = dealer.hand_value()
+            print 'Dealer = '+str(dealer_value)
+
+            # loop thru each player
+            for player in self.players[:-1]:
+                player_val = player.hand_value()
+                print player.name+' hand = '+str(player_val)
+                if player_val > dealer_value and (not player.busted):
+                    print player.name+' WON!'
+                else:
+                    print player.name+' Loss...'
+
 
     def do_money(self):
-        print '--- do money ---'
+        print '\n--- do money ---'
         for player in self.players:
             pass
         pass
