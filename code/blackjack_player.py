@@ -75,6 +75,17 @@ class Dealer(Player):
     def __init__(self, name, wallet, deck):
         super(Dealer, self).__init__( name, wallet, deck)
 
+    def play_action(self):
+        print self.name+"'s turn...."
+        self.display_hand
+        if self.hand_value() < 16 :
+            self.receive_card(self.deck.draw_card())
+        self.display_hand()
+        
+        if (self.check_bust()):
+            self.busted = True
+            print 'Dealer BUST!!!'
+
 
 
 
