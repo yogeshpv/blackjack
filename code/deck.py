@@ -14,6 +14,8 @@ class Card(object):
 
     def __cmp__(self, other):
         return cmp(self.value_dict[self.number], self.value_dict[other.number])
+    def get(self, card):
+        return self.value_dict[card.number]
 
 
 class Deck(object):
