@@ -1,5 +1,5 @@
 from deck import Deck
-from player import Player
+from player import Player, Dealer
 import sys
 
 
@@ -7,7 +7,7 @@ class Blackjack(object):
     def __init__(self, human=True):
         self.human = human
         self.player1 = self.create_player("Player 1", "amount")
-        self.player2 = self.create_player("Player 2", "amount")
+        self.player2 = self.create_dealer("Dealer 1")
         self.winner = None
         self.loser = None
         self.pot = []
@@ -21,6 +21,13 @@ class Blackjack(object):
             name = title
             cash = 0 if cash == "amount" else cash
         return Player(name, cash)
+
+    def create_dealer(self, title):
+        if self.human:
+            name = raw_input("Enter %s's name: " % title)
+        else:
+            name = title
+        return Dealer(name)
 
     def deal(self):
         deck = Deck()

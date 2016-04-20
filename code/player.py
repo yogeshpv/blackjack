@@ -46,3 +46,12 @@ class Player(object):
 
     def __len__(self):
         return len(self.hand) + len(self.discard)
+
+
+class Dealer(Player):
+
+    def __init__(self, name , wallet = 1000):
+        super(Dealer, self)
+
+
+
