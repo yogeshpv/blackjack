@@ -31,56 +31,55 @@ class Blackjack(object):
 
 
     def play_game(self):
+        print '=== start playin ==='
+        # while len(self.players) > 1: # there are players besides the dealer
+        self.play_round()
 
-        while len(self.players) > 1: # there are players besides the dealer
-            self.play_round()
+        self.pause()
+        print '=== play 1 round & exit ==='
+        sys.exit()
 
         return
 
     def play_round(self):
 
-        # self.bet()
+        self.place_bets()
         self.deck.shuffle()
         self.deal()
 
-        # play action goes here
+        # play action
+        for player in self.players:
+            pass
 
-        #self.determine_win_loss()
-        #self.do_money()
+        self.determine_win_loss()
+        self.do_money()
 
         self.display_hands()
 
-        self.pause()
-        print 'hello'
-        sys.exit()
-
-        # card1 = self.draw_card(self.player1, self.player2)
-        # card2 = self.draw_card(self.player2, self.player1)
-        # self.display_play(card1, card2)
-        # if not card1 or not card2:
-        #     return
-        # if card1 == card2:
-        #
-        #     self.war()
-        #     self.play_round()
-        # elif card1 > card2:
-        #     self.give_cards(self.player1)
-        #     print self.player1, len(self.player1), self.player2 , len(self.player2)
-        #
-        # else:
-        #     self.give_cards(self.player2)
-        #     print self.player1, len(self.player1), self.player2 , len(self.player2)
-
+    def place_bets(self):
+        print '--- placing bets ---'
+        return
 
     def deal(self):
+        print '--- dealing hands ---'
         # give each player 1st card, then 2nd card
         for i in range(2):
             for player in self.players:
                 player.receive_card( self.deck.draw_card() )
 
+    def determine_win_loss(self):
+        print '--- deterining winners / losers ---'
+        pass
+
+    def do_money(self):
+        print '--- do money ---'
+        pass
+
     def display_hands(self):
         for player in self.players:
             player.display_hand()
+
+
 
 
 
