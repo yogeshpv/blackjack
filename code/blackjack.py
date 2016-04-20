@@ -49,6 +49,7 @@ class Blackjack(object):
 
         # play action
         for player in self.players:
+            
             pass
 
         self.determine_win_loss()
@@ -58,6 +59,8 @@ class Blackjack(object):
 
     def place_bets(self):
         print '--- placing bets ---'
+        for player in self.players:
+            pass
         return
 
     def deal(self):
@@ -69,10 +72,14 @@ class Blackjack(object):
 
     def determine_win_loss(self):
         print '--- deterining winners / losers ---'
+        for player in self.players:
+            pass
         pass
 
     def do_money(self):
         print '--- do money ---'
+        for player in self.players:
+            pass
         pass
 
     def display_hands(self):
