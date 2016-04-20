@@ -1,28 +1,26 @@
 from deck import Deck
-from war_player import Player
+from player import Player
 import sys
 
 
 class Blackjack(object):
-    def __init__(self, war_size=3, human=True):
+    def __init__(self, human=True):
         self.human = human
-        self.player1 = self.create_player("Player 1")
-        self.player2 = self.create_player("Player 2")
+        self.player1 = self.create_player("Player 1", "amount")
+        self.player2 = self.create_player("Player 2", "amount")
         self.winner = None
         self.loser = None
         self.pot = []
         self.deal()
-        self.WarCnt = war_size
-        self.win_counts = {}
-        self.win_counts[self.player1] = 0
-        self.win_counts[self.player2] = 0
 
-    def create_player(self, title):
+    def create_player(self, title, cash):
         if self.human:
             name = raw_input("Enter %s's name: " % title)
+            cash = raw_input("Enter %s's cash: " % cash)
         else:
             name = title
-        return Player(name)
+            cash = 0 if cash == "amount" else cash
+        return Player(name, cash)
 
     def deal(self):
         deck = Deck()
@@ -63,22 +61,24 @@ class Blackjack(object):
 
     def play_round(self):
         self.pause()
-        card1 = self.draw_card(self.player1, self.player2)
-        card2 = self.draw_card(self.player2, self.player1)
-        self.display_play(card1, card2)
-        if not card1 or not card2:
-            return
-        if card1 == card2:
-
-            self.war()
-            self.play_round()
-        elif card1 > card2:
-            self.give_cards(self.player1)
-            print self.player1, len(self.player1), self.player2 , len(self.player2)
-
-        else:
-            self.give_cards(self.player2)
-            print self.player1, len(self.player1), self.player2 , len(self.player2)
+        print 'hello'
+        exit()
+        # card1 = self.draw_card(self.player1, self.player2)
+        # card2 = self.draw_card(self.player2, self.player1)
+        # self.display_play(card1, card2)
+        # if not card1 or not card2:
+        #     return
+        # if card1 == card2:
+        #
+        #     self.war()
+        #     self.play_round()
+        # elif card1 > card2:
+        #     self.give_cards(self.player1)
+        #     print self.player1, len(self.player1), self.player2 , len(self.player2)
+        #
+        # else:
+        #     self.give_cards(self.player2)
+        #     print self.player1, len(self.player1), self.player2 , len(self.player2)
 
     def give_cards(self, player):
         player.receive_cards(self.pot)
@@ -124,5 +124,5 @@ class Blackjack(object):
 
 
 if __name__ == '__main__':
-    game = War()
+    game = Blackjack()
     game.play_game()
